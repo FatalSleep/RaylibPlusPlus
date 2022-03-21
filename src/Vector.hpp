@@ -5,7 +5,7 @@
 
 namespace raylib {
     namespace cpp {
-        static class RayMath {
+        class RayMath {
         public:
             static float Clamp(float value, float min, float max) {
                 return ::Clamp(value, min, max);
@@ -253,10 +253,6 @@ namespace raylib {
 
             Vector3D& Max(Vector3D v) {
                 return Clone(::Vector3Max(*this, v));
-            }
-
-            Vector3D& Min(Vector3D v) {
-                return Clone(::Vector3Min(*this, v));
             }
 
             static Vector3D BaryCenter(Vector3D p, Vector3D a, Vector3D b, Vector3D c) {
