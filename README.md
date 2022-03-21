@@ -1,4 +1,4 @@
-# RaylibPlusPlus
+# RaylibPP
 C++ wrapper for Raylib that falls under the namespace: `raylib -> cpp`.
 
 Raylib: https://www.raylib.com
