@@ -28,14 +28,14 @@ namespace raylib {
             Colors() { r = 0x00, g = 0x00, b = 0x00, a = 0xFF; }
             Colors(byte r, byte g, byte b, byte a) { Set(r, g, b, a); }
             Colors(unsigned int color) { Set(color); }
-            Colors(Color color) { Set(color); }
+            Colors(::Color color) { Set(color); }
             
             operator int() const { return (r) & (g << 0x8) & (b << 0x10) & (a << 0x18); };
-            operator Color() const { return { r, g, b, a }; };
+            operator ::Color() const { return { r, g, b, a }; };
 
             void Set(byte r, byte g, byte b, byte a) { this->r = r, this->b = b, this->g = g, this->a = a; }
             void Set(int color) { r = color & 0x000000FFU, g = color & 0x0000FF00U, b = color & 0x00FF0000U, a = color & 0xFF000000U; }
-            void Set(Color color) { r = color.r, g = color.g, b = color.b, a = color.a; }
+            void Set(::Color color) { r = color.r, g = color.g, b = color.b, a = color.a; }
             void Set(float h, float s, float v) { Set(::ColorFromHSV(h, s, v)); }
 
             void Fade(float alpha) { Set(::Fade(*this, alpha)); }
@@ -49,7 +49,7 @@ namespace raylib {
 
             static Colors GetPixel(void* srcPtr, int format) { return static_cast<Colors>(::GetPixelColor(srcPtr, format)); }
             static void SetPixel(void* dstPtr, Colors color, int format) { ::SetPixelColor(dstPtr, color, format); }
-            static int GetPixelDataSize(int width, int height, PixelFormat format) { return ::GetPixelDataSize(width, height, format); }
+            static int GetPixelDataSize(int width, int height, ::PixelFormat format) { return ::GetPixelDataSize(width, height, format); }
 
             #pragma region PREDEFINED_RAYLIB_COLORS
             inline static Colors LightGray() { return LIGHTGRAY; }
