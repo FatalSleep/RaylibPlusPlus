@@ -32,7 +32,9 @@
 	#include "./RaylibExtern.hpp"
 	#include "./Colors.hpp"
 	#include "./Vector.hpp"
-
+	#include "./Textures.hpp"
+	#include "./Text.hpp"
+	
 	/// NON-RAYLIB ADDITIONS ///
 	#include "./Invokable.hpp" // For event/callback invokation.
 
