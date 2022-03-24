@@ -35,8 +35,8 @@ namespace raylib {
 
             Vector2D() { x = 0.0f, y = 0.0f; }
             Vector2D(float x, float y) { this->x = x, this->y = y; }
-            Vector2D(Vector2 vec) { x = vec.x, y = vec.y; }
-            operator Vector2() const { return { x, y }; };
+            Vector2D(::Vector2 vec) { x = vec.x, y = vec.y; }
+            operator ::Vector2() const { return { x, y }; };
 
             static Vector2D Vector2Zero() { return ::Vector2Zero(); }
             Vector2D& Zero() {
@@ -136,8 +136,8 @@ namespace raylib {
 
             Vector3D() : Vector2D() { z = 0.0f; }
             Vector3D(float x, float y, float z) : Vector2D(x, y) { this->z = z; }
-            Vector3D(Vector3 vec) { x = vec.x, y = vec.y, z = vec.z; }
-            operator Vector3() const { return { x, y, z }; };
+            Vector3D(::Vector3 vec) { x = vec.x, y = vec.y, z = vec.z; }
+            operator ::Vector3() const { return { x, y, z }; };
 
             static Vector3D Vector3Zero() { return ::Vector3Zero(); }
             Vector3D& Zero() {
@@ -277,8 +277,8 @@ namespace raylib {
 
             Vector4D() : Vector3D() { w = 0.0f; }
             Vector4D(float x, float y, float z, float w) : Vector3D(x, y, z) { this->w = w; }
-            Vector4D(Vector4 vec) { x = vec.x, y = vec.y, z = vec.z, w = vec.w; }
-            operator Vector4() const { return { x, y, z, w }; };
+            Vector4D(::Vector4 vec) { x = vec.x, y = vec.y, z = vec.z, w = vec.w; }
+            operator ::Vector4() const { return { x, y, z, w }; };
         };
 
         class Quaternion : public Vector4D {
