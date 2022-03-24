@@ -55,38 +55,33 @@ namespace raylib {
 
             operator ::Image() { return { data, w, h, mipmaps, format }; }
 
+            bool IsLoaded() { return isLoaded; }
+
             Image& Load(const char* fileName) {
-                if (isLoaded) ThrowException("Image.Load threw exzception: Image already loaded.");
                 return Clone(::LoadImage(fileName));
             }
 
             Image& LoadRaw(const char* fileName, int width, int height, int format, int headerSize) {
-                if (isLoaded) ThrowException("Image.LoadRaw threw exzception: Image already loaded.");
                 return Clone(::LoadImageRaw(fileName, width, height, format, headerSize));
             }
 
             Image& LoadAnim(const char* fileName, int* frames) {
-                if (isLoaded) ThrowException("Image.LoadAnim threw exzception: Image already loaded.");
                 return Clone(::LoadImageAnim(fileName, frames));
             }
 
             Image& LoadFromMemory(const char* fileType, const unsigned char* fileData, int dataSize) {
-                if (isLoaded) ThrowException("Image.LoadFromMemory threw exzception: Image already loaded.");
                 return Clone(::LoadImageFromMemory(fileType, fileData, dataSize));
             }
 
             Image& LoadFromTexture(Texture2D texture) {
-                if (isLoaded) ThrowException("Image.LoadFromTexture threw exzception: Image already loaded.");
                 return Clone(::LoadImageFromTexture(texture));
             }
 
             Image& LoadFromScreen(void) {
-                if (isLoaded) ThrowException("Image.LoadFromScreen threw exzception: Image already loaded.");
                 return Clone(::LoadImageFromScreen());
             }
 
             Image& Unload() {
-                if (!isLoaded) ThrowException("Image.Unload threw exception: Cannot unload non-existent image.");
                 ::UnloadImage(*this);
                 isLoaded = false;
                 return (*this);
@@ -101,37 +96,30 @@ namespace raylib {
             }
 
             Image& GenImageFromColor(int width, int height, Colors color) {
-                if (isLoaded) ThrowException("Image.GenImageFromColor threw exzception: Image already loaded.");
                 return Clone(::GenImageColor(width, height, color));
             }
 
             Image& GenImageFromGradientV(int width, int height, Colors top, Colors bottom) {
-                if (isLoaded) ThrowException("Image.GenImageFromGradientV threw exzception: Image already loaded.");
                 return Clone(::GenImageGradientV(width, height, top, bottom));
             }
 
             Image& GenImageFromGradientH(int width, int height, Colors top, Colors bottom) {
-                if (isLoaded) ThrowException("Image.GenImageFromGradientH threw exzception: Image already loaded.");
                 return Clone(::GenImageGradientH(width, height, top, bottom));
             }
 
             Image& GenImageFromGradientR(int width, int height, float density, Colors inner, Colors outer) {
-                if (isLoaded) ThrowException("Image.GenImageFromGradientR threw exzception: Image already loaded.");
                 return Clone(::GenImageGradientRadial(width, height, density, inner, outer));
             }
 
             Image& GenImageChecked(int width, int height, int checksX, int checksY, Colors col1, Colors col2) {
-                if (isLoaded) ThrowException("Image.GenImageChecked threw exzception: Image already loaded.");
                 return Clone(::GenImageChecked(width, height, checksX, checksY, col1, col2));
             }
 
             Image& GenImageWhiteNoise(int width, int height, float factor) {
-                if (isLoaded) ThrowException("Image.GenImageWhiteNoise threw exzception: Image already loaded.");
                 return Clone(::GenImageWhiteNoise(width, height, factor));
             }
 
             Image& GenImageCellular(int width, int height, int tileSize) {
-                if (isLoaded) ThrowException("Image.GenImageCellular threw exzception: Image already loaded.");
                 return Clone(::GenImageCellular(width, height, tileSize));
             }
             
@@ -510,10 +498,8 @@ namespace raylib {
                 pnt = new ::Vector2[points.size()];
                 texc = new ::Vector2[texcoords.size()];
 
-                for (int i = 0; i < points.size(); i++)
-                    pnt[i] = points[i];
-                for (int i = 0; i < texcoords.size(); i++)
-                    texc[i] = texcoords[i];
+                for (int i = 0; i < points.size(); i++) *(pnt + i) = points[i];
+                for (int i = 0; i < texcoords.size(); i++) *(texc + i) = texcoords[i];
 
                 ::DrawTexturePoly(*this, center, pnt, texc, points.size(), tint);
                 
