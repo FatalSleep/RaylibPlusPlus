@@ -22,6 +22,6 @@ Image, Texture, RenderTexture and NPatchInfo:
 
 `Textures.hpp` implements the remaining `module: textures` functionality for image/texture generation and drawing. Any Image/Texture function with "Image," or "Texture" in the name has been removed (redundant) and the function has been nested into the local scope of the image or texture object, making calls on an image or texture direct and easy.
 
-Font & GlyphInfo:
+Font & GlyphInfo & Text Manipulation & Text Drawing:
 
 `Text.hpp` implements the `module: text` functionality where any function call to font usage or text drawing requiring a specific font is implemented in the `Font` class and remaining drawing functions are implemented statically. All text handling functions are otherwise implemented statically in the `Text` class.
