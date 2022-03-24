@@ -1,3 +1,12 @@
+/*
+    struct Vector2;         // Vector2 type
+    struct Vector3;         // Vector3 type
+    struct Vector4;         // Vector4 type
+    struct Quaternion;      // Quaternion type
+    struct Matrix;          // Matrix type (OpenGL style 4x4)
+    
+    All of raymath.h
+*/
 #pragma once
 #ifndef RAYLIB_PLUSPLUS_VECTORS
 #define RAYLIB_PLUSPLUS_VECTORS
@@ -214,10 +223,7 @@ namespace raylib {
             }
 
             static void OrthoNormalize(Vector3D v1, Vector3D v2) {
-                Vector3 vv1 = v1, vv2 = v2;
-                ::Vector3OrthoNormalize(&vv1, &vv2);
-                v1.Clone(vv1);
-                v2.Clone(vv2);
+                ::Vector3OrthoNormalize(&static_cast<Vector3>(v1), &static_cast<Vector3>(v2));
             }
 
             Vector3D OrthoNormalize(Vector3D v) {
