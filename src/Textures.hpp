@@ -424,6 +424,8 @@ namespace raylib {
 
             operator ::Texture() { return { id, w, h, mipmaps, format }; }
 
+            bool IsLoaded() { return isLoaded; }
+
             Texture& Unload() {
                 ::UnloadTexture(*this);
                 return (*this);
