@@ -17,3 +17,7 @@ Raymath: https://github.com/raysan5/raylib/blob/master/src/raymath.h
 Colors in RTextures: https://github.com/raysan5/raylib/blob/master/src/rtextures.c
 
 `Colors.hpp` Wraps the Color functions/struct in the `rtextures.c` and `raylib.c` libraries into a complete color handling class. Please reference the `Color/pixel related functions` subsection of the module: textures section of the raylib cheatsheet. Not all of the functions have been implemented directly but their functionality is there, for example `ColorToInt` is not a function, but the `Colors` class auto-casts to an Int in RGBA format. The `Colors` class can also cast directly to raylib `Color` struct and back. There are static implementations for convenience for the following three functions: `GetPixel, SetPixel & GetPixelDataSize`, however proper implementations have been moved into the Textures class.
+
+Image, Texture, RenderTexture and NPatchInfo:
+
+`Textures.hpp` implements the remaining `module: textures` functionality for image/texture generation and drawing. Any Image/Texture function with "Image," or "Texture" in the name has been removed (redundant) and the function has been nested into the local scope of the image or texture object, making calls on an image or texture direct and easy.
