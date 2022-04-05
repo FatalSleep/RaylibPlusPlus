@@ -14,7 +14,7 @@ You can include `RaylibPP.hpp` to include the whole Raylib CPP library.
 
 Examples:
 ```C++
-BasicWIndow.cpp
+BasicWindow.cpp
 ```
 
 Core Raylib Implementation:
