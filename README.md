@@ -10,6 +10,12 @@ Additional header-only libraries:
 Invokable.hpp (thread safe verion) - https://github.com/FatalSleep/Event-Callback
 ```
 
+Core Raylib Implementation:
+
+Window/FileIO/Cursor funcitons are implemented into static classes (Only one window/mouse cursor can exist and files are loaded as c_str).
+
+Camera2D, Camera3D, Shader and MonitorInfo represent the individual class instances which have their own properties and all of their appropriate functions are implemented. Requires the following dependencies: `Colors.hpp, Vector.hpp Invokable.hpp and <string>`.
+
 Raymath: https://github.com/raysan5/raylib/blob/master/src/raymath.h
 
 `Vector.hpp` Wraps the Raymath library into a set of C++ classes that directly replace and cast to the Raylib math structs: `Vector2, Vector3, Vector4, Matrix & Quaternion`. Also includes a static class `RayMath` for help functions: `Clamp, Lerp, Normalize & Remap`. Functional usage is completely identical to Raymath with the exception that both the structs AND fucntions are wrapped into their respective class. The Vector/Quaternion classes now have the following inheritance hierarchy: `Quaternion -> Vector4`, `Vector4 -> Vector3 -> Vector2`. Several functions that provide a conversion say from Matrix to Quaternion or vice versa have dual-implementations, one static and one for the class object to clone that passed object.
