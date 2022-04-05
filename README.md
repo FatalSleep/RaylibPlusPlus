@@ -10,6 +10,8 @@ Additional header-only libraries:
 Invokable.hpp (thread safe verion) - https://github.com/FatalSleep/Event-Callback
 ```
 
+You can include `RaylibPP.hpp` to include the whole Raylib CPP library.
+
 Core Raylib Implementation:
 
 Window/FileIO/Cursor funcitons are implemented into static classes (Only one window/mouse cursor can exist and files are loaded as c_str).
