@@ -12,6 +12,11 @@ Invokable.hpp (thread safe verion) - https://github.com/FatalSleep/Event-Callbac
 
 You can include `RaylibPP.hpp` to include the whole Raylib CPP library.
 
+Examples:
+```C++
+BasicWIndow.cpp
+```
+
 Core Raylib Implementation:
 
 Window/FileIO/Cursor funcitons are implemented into static classes (Only one window/mouse cursor can exist and files are loaded as c_str).
