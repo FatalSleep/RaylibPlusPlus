@@ -815,6 +815,8 @@ namespace raylib {
 
             Shader(unsigned int id, int* locs) { this->id, this->locs = locs; isLoaded = true; }
 
+            ~Shader() { MemoryHandler(); }
+
             operator ::Shader() { return { id, locs }; }
 
             bool IsLoaded() { return isLoaded; }
