@@ -134,7 +134,14 @@ namespace raylib {
 
         class Image {
         private:
-            bool isLoaded;
+            bool isLoaded = false;
+
+            bool MemoryHandler() {
+                if (isLoaded) {
+                    ::UnloadImage(*this);
+                    isLoaded = false;
+                }
+            }
 
             inline Image& Clone(::Image img) {
                 data = img.data;
@@ -154,51 +161,57 @@ namespace raylib {
             Image(::Image image) {
                 data = image.data; w = image.width, h = image.height;
                 mipmaps = image.mipmaps, format = image.format;
-                isLoaded = false;
+                isLoaded = true;
             }
             Image(void* ptr, int w, int h, int mipmaps, int format) {
                 this->data = ptr; this->w = w; this->h = h;
                 this->mipmaps = mipmaps, this->format = format;
                 this->isLoaded = true;
             }
+            ~Image() { MemoryHandler(); }
 
             operator ::Image() { return { data, w, h, mipmaps, format }; }
 
             bool IsLoaded() { return isLoaded; }
 
             Image& Load(const char* fileName) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImage(fileName));
             }
 
             Image& LoadRaw(const char* fileName, int width, int height, int format, int headerSize) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImageRaw(fileName, width, height, format, headerSize));
             }
 
             Image& LoadAnim(const char* fileName, int* frames) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImageAnim(fileName, frames));
             }
 
             Image& LoadFromMemory(const char* fileType, const unsigned char* fileData, int dataSize) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImageFromMemory(fileType, fileData, dataSize));
             }
 
             Image& LoadFromTexture(Texture2D texture) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImageFromTexture(texture));
             }
 
             Image& LoadFromScreen(void) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadImageFromScreen());
             }
 
             Image& Unload() {
-                ::UnloadImage(*this);
-                isLoaded = false;
+                MemoryHandler();
                 return (*this);
             }
 
@@ -493,7 +506,14 @@ namespace raylib {
 
         class Texture {
         private:
-            bool isLoaded;
+            bool isLoaded = false;
+
+            bool MemoryHandler() {
+                if (isLoaded) {
+                    ::UnloadTexture(*this);
+                    isLoaded = false;
+                }
+            }
 
             inline Texture& Clone(::Texture tex) {
                 id = tex.id;
@@ -521,6 +541,7 @@ namespace raylib {
                 this->mipmaps = mipmaps, this->format = format;
                 this->isLoaded = true;
             }
+            ~Texture() { MemoryHandler(); }
 
             operator ::Texture() { return { id, w, h, mipmaps, format }; }
 
@@ -532,10 +553,12 @@ namespace raylib {
             }
 
             Texture& Load(const char* fileName) {
+                MemoryHandler();
                 return Clone(::LoadTexture(fileName));
             }
 
             Texture& LoadFromImage(Image image) {
+                MemoryHandler();
                 return Clone(::LoadTextureFromImage(image));
             }
 
@@ -613,7 +636,14 @@ namespace raylib {
 
         class RenderTexture {
         private:
-            bool isLoaded;
+            bool isLoaded = false;
+
+            bool MemoryHandler() {
+                if (isLoaded) {
+                    ::UnloadRenderTexture(*this);
+                    isLoaded = false;
+                }
+            }
 
             inline RenderTexture& Clone(::RenderTexture renderText) {
                 id = renderText.id;
@@ -642,15 +672,19 @@ namespace raylib {
                 this->depth = depth;
                 this->isLoaded = true;
             }
+            ~RenderTexture() { MemoryHandler(); }
 
             operator ::RenderTexture() { return { id, texture, depth }; }
 
+            bool IsLoaded() { return isLoaded; }
+
             RenderTexture& Load(int width, int height) {
+                MemoryHandler();
                 return Clone(::LoadRenderTexture(width, height));
             }
 
             RenderTexture& Unload(RenderTexture target) {
-                ::UnloadRenderTexture(*this);
+                MemoryHandler();
                 return (*this);
             }
         };
