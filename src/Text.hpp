@@ -81,7 +81,14 @@ namespace raylib {
 
         class Font {
         private:
-            bool isLoaded;
+            bool isLoaded = false;
+
+            bool MemoryHandler() {
+                if (isLoaded) {
+                    ::UnloadFont(*this);
+                    isLoaded = false;
+                }
+            }
 
             Font& Clone(::Font font) {
                 baseSize = font.baseSize, glyphCount = font.glyphCount, glyphPadding = font.glyphPadding;
@@ -108,32 +115,37 @@ namespace raylib {
                 Clone(font);
                 isLoaded = true;
             }
+            ~Font() { MemoryHandler(); }
 
             operator ::Font() { return { baseSize, glyphCount, glyphPadding, texture, recs, glyphs }; }
+
+            bool IsLoaded() { return isLoaded; }
 
             Font& GetFontDefault(void) {
                 ::Font font = ::GetFontDefault();
                 return (*this);
             }
 
-            bool IsLoaded() { return isLoaded; }
-
             Font& Load(const char* fileName) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadFont(fileName));
             }
 
             Font& LoadEx(const char* fileName, int fontSize, int* fontChars, int glyphCount) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadFontEx(fileName, fontSize, fontChars, glyphCount));
             }
 
             Font& LoadFromImage(Image image, Color key, int firstChar) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadFontFromImage(image, key, firstChar));
             }
 
             Font& LoadFromMemory(const char* fileType, const unsigned char* fileData, int dataSize, int fontSize, int* fontChars, int glyphCount) {
+                MemoryHandler();
                 isLoaded = true;
                 return Clone(::LoadFontFromMemory(fileType, fileData, dataSize, fontSize, fontChars, glyphCount));
             }
@@ -148,22 +160,18 @@ namespace raylib {
             
             void UnloadFontData() {
                 ::UnloadFontData((::GlyphInfo*)glyphs, glyphCount);
-                isLoaded = false;
             }
             
             Font& Unload() {
-                ::UnloadFont(*this);
-                isLoaded = false;
+                MemoryHandler();
                 return (*this);
             }
 
-            static void DrawFPS(int posX, int posY);
-            void DrawFPS(int posX, int posY) {
+            static void DrawFPS(int posX, int posY) {
                 ::DrawFPS(posX, posY);
             }
             
-            static void DrawText(const char* text, int posX, int posY, int fontSize, Colors color);
-            void DrawText(const char* text, int posX, int posY, int fontSize, Colors color) {
+            static void DrawText(const char* text, int posX, int posY, int fontSize, Colors color) {
                 ::DrawText(text, posX, posY, fontSize, color);
             }
 
@@ -182,8 +190,7 @@ namespace raylib {
                 return (*this);
             }
 
-            static int MeasureText(const char* text, int fontSize);
-            int MeasureText(const char* text, int fontSize) {
+            static int MeasureText(const char* text, int fontSize) {
                 return ::MeasureText(text, fontSize);
             }
 
